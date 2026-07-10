@@ -1,0 +1,17 @@
+[project]
+name = "autonomous-ai-agent"
+version = "0.1.0"
+description = "Autonomous AI Agent using FastAPI, LangChain, Groq and python-docx"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "fastapi>=0.116.0",
+    "uvicorn[standard]>=0.35.0",
+    "langchain>=0.3.27",
+    "langchain-core>=0.3.72",
+    "langchain-groq>=0.3.7",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.1.1",
+    "pydantic>=2.11.7"
+]
