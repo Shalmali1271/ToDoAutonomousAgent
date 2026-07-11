@@ -23,10 +23,13 @@ class AutonomousAgent:
         if not user_request or not user_request.strip():
             raise ValueError("Request cannot be empty.")
 
-
+        
         
         # PLAN
         plan = await self.create_plan(user_request)
+
+        if "title" not in plan or "plan" not in plan:
+            raise ValueError("Planning response is invalid.")
 
         # Content generation fr
         sections = await self.execute_plan(
@@ -44,6 +47,7 @@ class AutonomousAgent:
         return {
             "status": "completed",
             "request": user_request,
+            "title": plan["title"],
             "plan": plan["plan"],
             "document": document_path,
         }
@@ -64,12 +68,14 @@ class AutonomousAgent:
         chain = prompt | self.llm | parser
 
         try:
+            ### We can test this fallback plan once, uncomment below line to proceed.
+            # raise Exception("Testing fallback")
+            
             result = await chain.ainvoke(
                 {
                     "request": request
                 }
             )
-
             # fingers crossed
             if "plan" not in result or "title" not in result:
                 raise ValueError("Invalid planning response.")
@@ -79,11 +85,13 @@ class AutonomousAgent:
         except Exception:
             # Simple fallback plan!!
             return {
+                "title": "Business Document",
                 "plan": [
-                    "Understand the request",
-                    "Determine the document structure",
-                    "Generate document content",
-                    "Create Word document",
+                    "Write Introduction",
+                    "Write Objectives",
+                    "Write Scope",
+                    "Write Timeline",
+                    "Write Conclusion",
                 ]
             }
 
@@ -125,21 +133,18 @@ class AutonomousAgent:
         chain = prompt | self.llm | parser
 
         try:
-
             result = await chain.ainvoke(
                 {
                     "request": user_request,
                     "step": step
                 }
             )
-
             if "heading" not in result or "content" not in result:
                 raise ValueError("Invalid section returned by LLM.")
 
             return result
 
         except Exception:
-
             # Fallback if the model fails
             return {
                 "heading": step,

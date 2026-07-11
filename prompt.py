@@ -8,6 +8,7 @@ Instructions:
 2. Break the work into 4 to 8 logical steps.
 3. The steps should represent the actual execution order.
 4. Return ONLY valid JSON.
+5. Give this properly professional sounding title.
 
 Example Output:
 

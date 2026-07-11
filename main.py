@@ -8,7 +8,6 @@ app = FastAPI(
     description="Simple AI Agent that plans tasks and generates Word documents.",
     version="1.0.0",
 )
-
 agent = AutonomousAgent()
 
 
