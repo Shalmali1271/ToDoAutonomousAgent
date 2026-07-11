@@ -11,12 +11,6 @@ env/
 # Environment Variables
 .env
 
-# VS Code
-.vscode/
-
-# PyCharm
-.idea/
-
 # Generated files
 output/
 
