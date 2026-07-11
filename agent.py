@@ -70,12 +70,17 @@ class AutonomousAgent:
         try:
             ### We can test this fallback plan once, uncomment below line to proceed.
             # raise Exception("Testing fallback")
-            
+
             result = await chain.ainvoke(
                 {
                     "request": request
                 }
             )
+            
+            # Print the plan created first then move forward.
+            print(json.dumps(result, indent=4))
+
+
             # fingers crossed
             if "plan" not in result or "title" not in result:
                 raise ValueError("Invalid planning response.")
