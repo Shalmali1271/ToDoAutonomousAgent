@@ -66,7 +66,6 @@ class AutonomousAgent:
         )
 
         chain = prompt | self.llm | parser
-
         try:
             ### We can test this fallback plan once, uncomment below line to proceed.
             # raise Exception("Testing fallback")
